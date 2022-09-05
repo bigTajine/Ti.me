@@ -7,5 +7,3 @@ So here we are; Ti.me.
 
 The application is almost there. 
 More to come soon.（＊＾Ｕ＾）人（≧Ｖ≦＊）/
-
-bT
