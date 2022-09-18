@@ -321,7 +321,7 @@ def onclick(args):
 
     if args == 3:
         tkinter.messagebox.showinfo('About',
-                                    'Ti.me [Alpha]\n@bigTajine')
+                                    'Ti.me [v0.9.0]\n@bigTajine')
 
     if args == 4:
         tkinter.messagebox.showinfo('Note',
