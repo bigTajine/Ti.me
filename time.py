@@ -33,10 +33,15 @@ windll.shcore.SetProcessDpiAwareness(1)
 
 # Initialization.
 
+
 app = Tk()
-app.attributes('-topmost', True, '-alpha', 0.95)
+SCREEN_WIDTH, SCREEN_HEIGHT = app.winfo_screenwidth(), app.winfo_screenheight()
+RATIO = SCREEN_WIDTH / 2560
+appwidth = int(RATIO * 395)
+appheight = int(RATIO * 215)
+app.attributes('-topmost', True, '-alpha', 1)
 app.configure(bg='#BFB9FA')
-app.geometry('500x295')
+app.geometry(str(appwidth)+"x"+str(appheight))
 app.iconbitmap('time.ico')
 app.resizable(0, 0)
 app.title('Ti.me')
@@ -45,7 +50,7 @@ app.title('Ti.me')
 
 button_pressed = 0
 count_column = 0
-monserrat_10 = tkFont.Font(family='Monserrat', size=10)
+monserrat_8 = tkFont.Font(family='Monserrat', size=8)
 
 # Functions
 
@@ -57,12 +62,16 @@ def get_date():
 
 
 def get_labels():
-    frame = Frame(app, bg='#BFB9FA')
-
+    Grid.rowconfigure(app,0,weight=1)
+    Grid.columnconfigure(app,0,weight=1)
+    Grid.rowconfigure(app,1,weight=1)
+    Grid.rowconfigure(app,2,weight=1)
+    Grid.rowconfigure(app,3,weight=1)
+    Grid.rowconfigure(app,4,weight=1)
     # Grid based solution that allows me to put only a specific word in bold
     # text; Label doesn't allow this out of the box.
 
-    label_frame = Frame(frame, bg='#BFB9FA')
+    label_frame = Frame(app, bg='#BFB9FA')
     label_frame.grid(row=0, column=0)
 
     # Allows Ti.me to be launched in the event of an exception (ie. offline,
@@ -76,7 +85,7 @@ def get_labels():
 
             # Continuation of the Grid based solution.
 
-            Label(label_frame, text='Time in ', font=('Lato', 12),
+            Label(label_frame, text='Time in ', font=('Lato', 11),
                   fg='#333333', bg='#BFB9FA').grid(row=0, column=0)
 
             Label(
@@ -85,7 +94,7 @@ def get_labels():
                 ', ',
                 font=(
                     'Lato',
-                    12,
+                    11,
                     'bold'),
                 fg='#333333',
                 bg='#BFB9FA').grid(
@@ -93,44 +102,44 @@ def get_labels():
                 column=1)
 
             Label(label_frame, text=dec_ip['countryCode'] + ' now',
-                  font=('Lato', 12), fg='#333333', bg='#BFB9FA'
+                  font=('Lato', 11), fg='#333333', bg='#BFB9FA'
                   ).grid(row=0, column=2)
     except BaseException:
 
-        Label(label_frame, text='Time at ', font=('Lato', 12),
+        Label(label_frame, text='Time at ', font=('Lato', 11),
               fg='#333333', bg='#BFB9FA').grid(row=0, column=0)
 
-        Label(label_frame, text='Local, ', font=('Lato', 12, 'bold'),
+        Label(label_frame, text='Local, ', font=('Lato', 11, 'bold'),
               fg='#333333', bg='#BFB9FA').grid(row=0, column=1)
 
-        Label(label_frame, text='NA now', font=('Lato', 12),
+        Label(label_frame, text='NA now', font=('Lato', 11),
               fg='#333333', bg='#BFB9FA').grid(row=0, column=2)
 
     # Allows the function get_time to access the variable.
 
     global time_label
-    time_label = Label(frame, font=('Montserrat', 36, 'bold'),
+    time_label = Label(app, font=('Montserrat', 28, 'bold'),
                        fg='#333333', bg='#BFB9FA')
     time_label.grid(row=1, column=0)
 
     # Allows the function get_date to access the variable.
 
     global date_label
-    date_label = Label(frame, font=('Lato', 12), fg='#333333',
+    date_label = Label(app, font=('Lato', 11), fg='#333333',
                        bg='#BFB9FA')
     date_label.grid(row=2, column=0)
 
     # date_label was too close to the button_frame so I created a spacer of
     # value 1.
 
-    spacer = Label(frame, text='', font=('Lato', 1), fg='#333333',
+    spacer = Label(app, text='', font=('Lato', 1), fg='#333333',
                    bg='#BFB9FA')
     spacer.grid(row=3, column=0)
 
     # Applying the same grid based solution allowing to me to align the
     # buttons in an aestetically pleasing manner.
 
-    button_frame = Frame(frame, bg='#BFB9FA')
+    button_frame = Frame(app, bg='#BFB9FA')
     button_frame.grid(row=4, column=0)
 
     def button(
@@ -157,7 +166,7 @@ def get_labels():
             width=9,
             height=1,
             text=text,
-            font=monserrat_10,
+            font=monserrat_8,
             fg=fcolor,
             bg=bcolor,
             border=0,
@@ -199,8 +208,6 @@ def get_labels():
         0,
         2,
     )
-
-    frame.pack(expand=True)
 
 
 def get_location():
@@ -251,14 +258,14 @@ def onclick(args):
         label_frame = Frame(frame, bg='#BFB9FA')
         label_frame.grid(row=0, column=0)
 
-        Label(label_frame, text='Type in the city below', font=('Lato', 12),
+        Label(label_frame, text='Type in the city below', font=('Lato', 11),
               fg='#333333', bg='#BFB9FA').grid(row=0, column=0)
 
         spacer = Label(frame, text='', font=('Lato', 1), fg='#333333',
                        bg='#BFB9FA')
         spacer.grid(row=1, column=0)
 
-        entry = Entry(frame, font=('Lato', 12), justify='center')
+        entry = Entry(frame, font=('Lato', 11), justify='center')
         entry.grid(row=2, column=0)
 
         spacer = Label(frame, text='', font=('Lato', 1), fg='#333333',
@@ -292,7 +299,7 @@ def onclick(args):
                 width=9,
                 height=1,
                 text=text,
-                font=monserrat_10,
+                font=monserrat_8,
                 fg=fcolor,
                 bg=bcolor,
                 border=0,
@@ -321,7 +328,7 @@ def onclick(args):
 
     if args == 3:
         tkinter.messagebox.showinfo('About',
-                                    'Ti.me [v0.9.0]\n@bigTajine')
+                                    'Ti.me [v0.9.0]\n@bigTajine\n'+str(SCREEN_WIDTH)+"x"+str(SCREEN_HEIGHT)+"\n"+str(RATIO))
 
     if args == 4:
         tkinter.messagebox.showinfo('Note',
