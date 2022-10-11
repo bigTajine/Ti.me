@@ -37,8 +37,8 @@ windll.shcore.SetProcessDpiAwareness(1)
 app = Tk()
 SCREEN_WIDTH, SCREEN_HEIGHT = app.winfo_screenwidth(), app.winfo_screenheight()
 RATIO = SCREEN_WIDTH / 2560
-appwidth = int(RATIO * 395)
-appheight = int(RATIO * 215)
+appwidth = int(RATIO * 390)
+appheight = int(RATIO * 220)
 app.attributes('-topmost', True, '-alpha', 1)
 app.configure(bg='#BFB9FA')
 app.geometry(str(appwidth)+"x"+str(appheight))
@@ -191,7 +191,7 @@ def get_labels():
     button(
         0,
         0,
-        'Search',
+        'TBA',
         '#b9fabf',
         '#333333',
         lambda: onclick(2),
@@ -230,10 +230,13 @@ def get_time():
     utc_now = datetime.utcnow()
     utc = utc_now.replace(tzinfo=from_zone)
     local = utc.astimezone(to_zone)
+    nyc = utc.astimezone(to_zone)
     if button_pressed == 0:
         time_now = local.strftime('%H:%M:%S')
+        nyc_now = nyc.strftime('%H:%M')
     if button_pressed != 0:
         time_now = local.strftime('%I:%M %p')
+        nyc_now = nyc.strftime('%I:%M')
     time_label.config(text=time_now)
     time_label.after(200, get_time)
 
@@ -245,94 +248,14 @@ def onclick(args):
             button_pressed = 1
         elif button_pressed != 0:
             button_pressed = 0
+
     if args == 2:
-        top = Toplevel(app)
-        top.geometry("500x250")
-        top.title("Search")
-        top.attributes('-topmost', True, '-alpha', 0.95)
-        top.configure(bg='#BFB9FA')
-        top.iconbitmap('time.ico')
-        top.resizable(0, 0)
-
-        frame = Frame(top, bg='#BFB9FA')
-        label_frame = Frame(frame, bg='#BFB9FA')
-        label_frame.grid(row=0, column=0)
-
-        Label(label_frame, text='Type in the city below', font=('Lato', 11),
-              fg='#333333', bg='#BFB9FA').grid(row=0, column=0)
-
-        spacer = Label(frame, text='', font=('Lato', 1), fg='#333333',
-                       bg='#BFB9FA')
-        spacer.grid(row=1, column=0)
-
-        entry = Entry(frame, font=('Lato', 11), justify='center')
-        entry.grid(row=2, column=0)
-
-        spacer = Label(frame, text='', font=('Lato', 1), fg='#333333',
-                       bg='#BFB9FA')
-        spacer.grid(row=3, column=0)
-
-        button_frame = Frame(frame, bg='#BFB9FA')
-        button_frame.grid(row=4, column=0)
-
-        def button(
-            x,
-            y,
-            text,
-            bcolor,
-            fcolor,
-            cmd,
-            row,
-            column,
-        ):
-
-            def on_enter(e):
-                new_button['background'] = fcolor
-                new_button['foreground'] = bcolor
-
-            def on_leave(e):
-                new_button['background'] = bcolor
-                new_button['foreground'] = fcolor
-
-            new_button = Button(
-                button_frame,
-                width=9,
-                height=1,
-                text=text,
-                font=monserrat_8,
-                fg=fcolor,
-                bg=bcolor,
-                border=0,
-                activeforeground=fcolor,
-                activebackground=bcolor,
-                command=cmd,
-            )
-            new_button.grid(row=row, column=column)
-            new_button.bind('<Enter>', on_enter)
-            new_button.bind('<Leave>', on_leave)
-
-        button(
-            0,
-            0,
-            'Find',
-            '#f4fab9',
-            '#333333',
-            lambda: onclick(4),
-            0,
-            0,
-        )
-
-        frame.pack()
-
-        top.mainloop()
+        tkinter.messagebox.showinfo('Ti.me',
+                                    'This function isn\'t avaliable yet')
 
     if args == 3:
-        tkinter.messagebox.showinfo('About',
-                                    'Ti.me [v0.9.0]\n@bigTajine\n'+str(SCREEN_WIDTH)+"x"+str(SCREEN_HEIGHT)+"\n"+str(RATIO))
-
-    if args == 4:
-        tkinter.messagebox.showinfo('Note',
-                                    'This function isn\'t avaliable')
+        tkinter.messagebox.showinfo('Ti.me',
+                                    'Ti.me [v0.9.1] (づ｡◕‿‿◕｡)づ\nA @bigTajine creation')
 
 
 # Calling the functions below to allow for more order and oversight.
